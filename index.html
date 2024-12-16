@@ -16,13 +16,13 @@
     </header>
     <main class=" bg-black p-10 m-auto">
         <div id="productDetails" class=" w-[1920px] h-[1014px] m-auto  bg-white flex justify-center items-center">
-            <div id="productContainer" class="w-[1320px] h-[720px] grid grid-cols-2 gap-[10px] p-1  bb ">
+            <div id="productContainer" class="w-[1320px] h-[720px] grid grid-cols-2 gap-[60px] p-1  bb ">
                 <div id="photoConatiner" class="bb overflow-hidden items-center">
-                    <img class=" w-full h-full" src="./assets/images/cyan.jpg" alt=" product Photo">
+                    <img id="productImage" class=" w-full h-full" src="./assets/images/cyan.jpg" alt=" product Photo">
 
                 </div>
 
-                <div id="product-Contant" class="bb h-[539px] w-[630px] my-auto">
+                <div id="product-Contant" class=" h-[539px w-[630px] my-auto">
                     <h1 id="product-Name" class="text-[40px] text-[#364A63] font-bold py-3 ">Classy Modern Smart watch
                     </h1>
                     <div id="reviewSection" class=" pb-1 flex gap-2 items-center">
@@ -64,17 +64,18 @@
                     <div class="band-Button-Container pt-5">
                         <h1 class=" text-[18px] font-bold  text-[#364A63]">Band Color</h1>
                         <div class="button-container flex gap-2 items-center">
+                            <button id="button-teal" class="color-button rounded-full p-[2px]  border-[#1FCEC9]">
+                                <p class="p-2 rounded-full bg-[#1FCEC9]"></p>
+                            </button>
                             <button id="button-purple"
                                 class="color-button rounded-full p-[2px] border-2 border-[#816BFF]">
                                 <p class="p-2 rounded-full bg-[#816BFF]"></p>
                             </button>
-                            <button id="button-teal" class="color-button rounded-full p-[2px]  border-[#1FCEC9]">
-                                <p class="p-2 rounded-full bg-[#1FCEC9]"></p>
-                            </button>
+
                             <button id="button-blue" class="color-button rounded-full p-[2px]  border-[#4B97D3]">
                                 <p class="p-2 rounded-full bg-[#4B97D3]"></p>
                             </button>
-                            <button id="button-dark" class="color-button rounded-full p-[2px]  border-[#3B4747]">
+                            <button id="button-black" class="color-button rounded-full p-[2px]  border-[#3B4747]">
                                 <p class="p-2 rounded-full bg-[#3B4747]"></p>
                             </button>
                         </div>
@@ -85,26 +86,47 @@
                     <div class="band-Size-Container pt-5">
                         <h1 class=" text-[18px] font-bold  text-[#364A63]">Wrist Size</h1>
                         <div class=" flex items-center gap-[10px]">
-                            <button class=" size-button border border-[#6576FF] px-4 py-2  text-base  text-[#8091A7]">
+                            <button id="S-69" class=" size-button border  px-4 py-2  text-base  text-[#8091A7]">
                                 <span class=" font-bold  text-[#6576FF]"> S</span>
-                                <span >$69</span>
+                                <span>$69</span>
                             </button>
-                            <button class="size-button border  px-4 py-2  text-base  text-[#8091A7]">
+                            <button id="M-79" class="size-button border  px-4 py-2  text-base  text-[#8091A7]">
                                 <span class=" font-bold  text-[#6576FF]"> M</span>
-                                <span >$79</span>
+                                <span>$79</span>
                             </button>
-                            <button class="size-button border border-gray-700 px-4 py-2  text-base  text-[#8091A7]">
+                            <button id="L-89" class="size-button border px-4 py-2  text-base  text-[#8091A7]">
                                 <span class=" font-bold  text-[#6576FF]"> L</span>
-                                <span >$89</span>
+                                <span>$89</span>
                             </button>
-                            <button class="size-button border border-gray-700 px-4 py-2  text-base  text-[#8091A7]">
+                            <button id="XL-99" class="size-button border px-4 py-2  text-base  text-[#8091A7]">
                                 <span class=" font-bold  text-[#6576FF]"> XL</span>
-                                <span >$99</span>
+                                <span>$99</span>
                             </button>
 
 
                         </div>
 
+                    </div>
+
+
+
+                    <!-- cart Container  -->
+                    <div id="cart-container" class="pt-5 flex gap-3 items-center">
+                        <div id="quantity-buttons" class=" flex items-center space-x-2 border-2 rounded-sm ">
+                            <button id="quantity-decrease"
+                                class="px-3 py-1 border-r-2 hover:bg-[#6576FF] hover:text-white text-[#6576FF] ">-</button>
+                            <p id="quantity-dis" class="py-1 px-6 text-lg ">1</p>
+                            <button id="quantity-increase"
+                                class="px-2 py-1 border-l-2 hover:bg-[#6576FF]  hover:text-white text-[#6576FF] ">+</button>
+                        </div>
+
+                        <button
+                            class="py-2 px-[18px] rounded-sm bg-[#6576FF] hover:bg-[#4658e6] text-white font-bold text-[13px]">Add
+                            To Cart</button>
+
+                        <button class="p-2 border-2 rounded-sm hover:border-[#6576FF]">
+                            <img class="h-4 w-4" src="./assets//images/heart.png" alt="heart- icon">
+                        </button>
                     </div>
 
                 </div>
