@@ -16,33 +16,27 @@ let productPrice = 0
 let currentQuantity = 1;
 let totalPrice = 0;
 
+const colorToImageMap = {
+    'button-purple': imgPurple,
+    'button-teal': imgTeal,
+    'button-blue': imgBlue,
+    'button-black': imgBlack
+};
+
 colorButtons.forEach(button => {
     button.addEventListener('click', () => {
         // Remove border from all color buttons
-        colorButtons.forEach(b => {
-            b.classList.remove('border-2');
-        });
+        colorButtons.forEach(b => b.classList.remove('border-2'));
 
-        // Set the selected color
+        // Set the selected color and image
         bandColor = button.id;
-        if(button.id==='button-purple'){
-            productImage.src=imgPurple
-            
-        }
-        else if(button.id==='button-teal'){
-            productImage.src=imgTeal
-        }
-        else if(button.id==='button-blue'){
-            productImage.src=imgBlue
-        }
-        else if(button.id==='button-black'){
-            productImage.src=imgBlack
-        }
+        productImage.src = colorToImageMap[button.id] || productImage.src;
 
         // Add the border to the selected color button
         button.classList.add('border-2');
     });
 });
+
 
 sizeButtons.forEach(button => {
     button.addEventListener('click', () => {
