@@ -1,20 +1,30 @@
-const productImage= document.getElementById('productImage')
+const productImage = document.getElementById('productImage')
+const quantityDis = document.getElementById('quantity-dis')
+const checkOutCount= document.getElementById('checkOutCount')
+
+// Buttons 
 const colorButtons = document.querySelectorAll('.color-button');
 const sizeButtons = document.querySelectorAll('.size-button');
 const btnDecrease = document.getElementById('quantity-decrease')
 const btnIncrease = document.getElementById('quantity-increase')
-const quantityDis = document.getElementById('quantity-dis')
+const addToCartBtn = document.getElementById('addToCard')
 
-const imgPurple ='./assets/images/lg-a 3.jpg'
-const imgTeal ='./assets/images/cyan.jpg'
-const imgBlue ='./assets/images/lg-a 3 (1).jpg'
-const imgBlack ='./assets/images/black.jpg'
 
-let bandColor = 'button-purple';
+const imgPurple = './assets/images/lg-a 3.jpg'
+const imgTeal = './assets/images/cyan.jpg'
+const imgBlue = './assets/images/lg-a 3 (1).jpg'
+const imgBlack = './assets/images/black.jpg'
+
+let bandColor = 'button-teal';
 let productSize = 'S'
 let productPrice = 0
 let currentQuantity = 1;
 let totalPrice = 0;
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+window.addEventListener('load', () => {
+    checkOutCount.innerText=cart?.length
+});
 
 const colorToImageMap = {
     'button-purple': imgPurple,
@@ -69,3 +79,42 @@ btnDecrease.addEventListener('click', () => {
     }
 })
 
+
+
+
+
+addToCartBtn.addEventListener('click', () => {
+
+    console.log(cart.length);
+ 
+    const productData = {
+        productName: 'Classy Modern Smart Watch',
+        bandColor: bandColor,
+        productSize: productSize,
+        quantity: currentQuantity,
+    };
+
+    
+    const existingProductIndex = cart.findIndex(item =>
+     
+        item.productName === productData.productName &&
+        item.bandColor === productData.bandColor &&
+        item.productSize === productData.productSize &&
+        item.quantity === productData.quantity
+    );
+
+    if (existingProductIndex === -1) {
+      
+        cart.push(productData);
+        // console.log('Product added to cart:', productData);
+    } else {
+        // console.log('Product already exists in cart with the same properties:', productData);
+    }
+
+    // Store updated cart in localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    checkOutCount.innerText=cart?.length
+
+    // console.log('Updated Cart:', cart);
+});
