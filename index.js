@@ -1,6 +1,7 @@
 const productImage = document.getElementById('productImage')
 const quantityDis = document.getElementById('quantity-dis')
-const checkOutCount= document.getElementById('checkOutCount')
+const checkOutCount = document.getElementById('checkOutCount')
+const tbody = document.getElementById("cart-body");
 
 // Buttons 
 const colorButtons = document.querySelectorAll('.color-button');
@@ -8,6 +9,7 @@ const sizeButtons = document.querySelectorAll('.size-button');
 const btnDecrease = document.getElementById('quantity-decrease')
 const btnIncrease = document.getElementById('quantity-increase')
 const addToCartBtn = document.getElementById('addToCard')
+const checkOutBtn = document.getElementById('checkOut')
 
 
 const imgPurple = './assets/images/lg-a 3.jpg'
@@ -23,7 +25,10 @@ let totalPrice = 0;
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 window.addEventListener('load', () => {
-    checkOutCount.innerText=cart?.length
+    checkOutCount.innerText = cart?.length
+    if (cart.length > 0) {
+        checkOutBtn.classList.remove('hidden')
+    }
 });
 
 const colorToImageMap = {
@@ -81,40 +86,58 @@ btnDecrease.addEventListener('click', () => {
 
 
 
-
-
 addToCartBtn.addEventListener('click', () => {
 
-    console.log(cart.length);
- 
     const productData = {
         productName: 'Classy Modern Smart Watch',
         bandColor: bandColor,
         productSize: productSize,
         quantity: currentQuantity,
+        price:productPrice,
     };
 
-    
     const existingProductIndex = cart.findIndex(item =>
-     
+
         item.productName === productData.productName &&
         item.bandColor === productData.bandColor &&
         item.productSize === productData.productSize &&
-        item.quantity === productData.quantity
+        item.quantity === productData.quantity&&
+        item.price === productData.price
     );
 
     if (existingProductIndex === -1) {
-      
-        cart.push(productData);
-        // console.log('Product added to cart:', productData);
+        cart.push(productData)
     } else {
-        // console.log('Product already exists in cart with the same properties:', productData);
+        // console.log('already exists ', productData);
     }
 
-    // Store updated cart in localStorage
+
     localStorage.setItem('cart', JSON.stringify(cart));
+    checkOutCount.innerText = cart?.length
 
-    checkOutCount.innerText=cart?.length
+    if (cart.length > 0) {
+        checkOutBtn.classList.remove('hidden')
+    }
 
-    // console.log('Updated Cart:', cart);
+    // console.log('update:', cart);
+});
+
+
+
+cart.forEach(item => {
+    // একটি নতুন row তৈরি করুন
+    const row = document.createElement('tr');
+    row.className = "p-1 pb-2 grid grid-cols-12 w-full text-[#8091A7] text-[14px]";
+
+    // row এর HTML কন্টেন্ট যোগ করুন
+    row.innerHTML = `
+        <th class="col-span-4 text-start">Classy Modern Smart Watch</th>
+        <th class="col-span-2">${item.bandColor}</th>
+        <th class="col-span-2">${item.productSize }</th>
+        <th class="col-span-2">${item.quantity}</th>
+        <th class="col-span-2 text-end">${item.price}</th>
+    `;
+
+    // টেবিলের বডিতে row যোগ করুন
+    tbody.appendChild(row);
 });
