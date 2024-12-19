@@ -1,9 +1,13 @@
-const productImage = document.getElementById('productImage')
-const quantityDis = document.getElementById('quantity-dis')
-const checkOutCount = document.getElementById('checkOutCount')
+const productImage = document.getElementById('productImage');
+const quantityDis = document.getElementById('quantity-dis');
+const checkOutCount = document.getElementById('checkOutCount');
 const tbody = document.getElementById("cart-body");
+const modal = document.getElementById('modalContainer');
+const totalContainer = document.getElementById('total-container')
+
 
 // Buttons 
+
 const colorButtons = document.querySelectorAll('.color-button');
 const sizeButtons = document.querySelectorAll('.size-button');
 const btnDecrease = document.getElementById('quantity-decrease')
@@ -24,12 +28,15 @@ let currentQuantity = 1;
 let totalPrice = 0;
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+let totalCartProduct = 0;
+
 window.addEventListener('load', () => {
     checkOutCount.innerText = cart?.length
     if (cart.length > 0) {
         checkOutBtn.classList.remove('hidden')
     }
 });
+
 
 const colorToImageMap = {
     'button-purple': imgPurple,
@@ -93,7 +100,7 @@ addToCartBtn.addEventListener('click', () => {
         bandColor: bandColor,
         productSize: productSize,
         quantity: currentQuantity,
-        price:productPrice,
+        price: productPrice,
     };
 
     const existingProductIndex = cart.findIndex(item =>
@@ -101,7 +108,7 @@ addToCartBtn.addEventListener('click', () => {
         item.productName === productData.productName &&
         item.bandColor === productData.bandColor &&
         item.productSize === productData.productSize &&
-        item.quantity === productData.quantity&&
+        item.quantity === productData.quantity &&
         item.price === productData.price
     );
 
@@ -125,19 +132,49 @@ addToCartBtn.addEventListener('click', () => {
 
 
 cart.forEach(item => {
-    // একটি নতুন row তৈরি করুন
-    const row = document.createElement('tr');
-    row.className = "p-1 pb-2 grid grid-cols-12 w-full text-[#8091A7] text-[14px]";
 
-    // row এর HTML কন্টেন্ট যোগ করুন
+    totalCartProduct = totalCartProduct + parseInt(item.quantity)
+    totalPrice = totalPrice + parseInt(item.price)
+
+    const row = document.createElement('tr');
+    row.className = "p-1 pb-4 grid grid-cols-12 gap-2 w-full text-[#364A63] text-[14px]";
+
+
     row.innerHTML = `
-        <th class="col-span-4 text-start">Classy Modern Smart Watch</th>
-        <th class="col-span-2">${item.bandColor}</th>
-        <th class="col-span-2">${item.productSize }</th>
-        <th class="col-span-2">${item.quantity}</th>
-        <th class="col-span-2 text-end">${item.price}</th>
+        <th class="col-span-4 text-start flex gap-2">
+         <span class="w-9  h-9  ">
+         <img class="w-full  " src=${colorToImageMap[item.bandColor] || productImage.src} alt="">
+         </span>
+        Classy Modern Smart Watch
+        </th>
+        <th class="col-span-2 uppercase">${item.bandColor}</th>
+        <th class="col-span-2 font-bold">${item.productSize}</th>
+        <th class="col-span-2 font-bold">${item.quantity}</th>
+        <th class="col-span-2 text-end font-bold">${item.price}</th>
     `;
 
-    // টেবিলের বডিতে row যোগ করুন
+
     tbody.appendChild(row);
+
 });
+
+
+checkOutBtn.addEventListener('click', () => {
+    modal.classList.remove('hidden')
+    modal.classList.add('flex')
+    totalContainer.innerHTML = `
+     <h1 class="col-span-8 font-bold text-lg">Total:</h1>
+     <span class="col-span-2 text-center">${totalCartProduct}</span>
+     <span class="col-span-2  text-end">${totalPrice}</span>
+    `
+    cart = JSON.parse(localStorage.getItem('cart')) || []
+
+})
+
+modal.addEventListener('click', (event) => {
+    if (event.target !== event.currentTarget) {
+        return;
+    }
+    modal.classList.remove('flex')
+    modal.classList.add('hidden')
+})

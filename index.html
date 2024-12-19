@@ -143,8 +143,8 @@
             </div>
 
             <!-- Modal -->
-            <div id="modalContainer "
-                class="absolute hidden top-0 left-0  w-full h-full flex items-center    bg-slate-400 bg-opacity-55 ">
+            <div id="modalContainer"
+                class="absolute  top-0 left-0  w-full h-full hidden items-center transition-all duration-500   bg-slate-400 bg-opacity-55 ">
                 <div class=" bg-white rounded-xl w-2/5 m-auto  min-h-40 p-10 bb">
                     <h1 class="font-bold text-xl text-[#364A63] ">Your Cart</h1>
                     <table class="  w-full">
@@ -155,11 +155,18 @@
                                 <th class=" col-span-2">Size</th>
                                 <th class=" col-span-2">Qnt</th>
                                 <th class=" col-span-2 text-end">Price</th>
+                               
                             </tr>
                         </thead>
+
                         <tbody id="cart-body">
                         </tbody>
+
+                     
                     </table>
+                    <div id="total-container" class="grid grid-cols-12 gap-2 mt-2 ">
+                       
+                    </div>
 
                 </div>
 
