@@ -16,14 +16,14 @@ const addToCartBtn = document.getElementById('addToCard')
 const checkOutBtn = document.getElementById('checkOut')
 
 
-const imgPurple = './assets/images/lg-a 3.jpg'
+const imgPurple = './assets/images/lg-a-3-1.jpg'
 const imgTeal = './assets/images/cyan.jpg'
-const imgBlue = './assets/images/lg-a 3 (1).jpg'
+const imgBlue = './assets/images/lg-a-3.jpg'
 const imgBlack = './assets/images/black.jpg'
 
 let bandColor = 'button-teal';
 let productSize = 'S'
-let productPrice = 0
+let productPrice = 69;
 let currentQuantity = 1;
 let totalPrice = 0;
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -44,6 +44,8 @@ const colorToImageMap = {
     'button-blue': imgBlue,
     'button-black': imgBlack
 };
+
+// console.log(colorToImageMap[]);
 
 colorButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -131,43 +133,53 @@ addToCartBtn.addEventListener('click', () => {
 
 
 
-cart.forEach(item => {
+const reRender = () => {
 
-    totalCartProduct = totalCartProduct + parseInt(item.quantity)
-    totalPrice = totalPrice + parseInt(item.price)
+    tbody.innerHTML = '';
 
-    const row = document.createElement('tr');
-    row.className = "p-1 pb-4 grid grid-cols-12 gap-2 w-full text-[#364A63] text-[14px]";
+    cart.forEach(item => {
 
+        totalCartProduct = totalCartProduct + parseInt(item.quantity)
+        totalPrice = totalPrice + parseInt(item.price)
+        console.log(totalCartProduct, totalPrice);
 
-    row.innerHTML = `
-        <th class="col-span-4 text-start flex gap-2">
-         <span class="w-9  h-9  ">
-         <img class="w-full  " src=${colorToImageMap[item.bandColor] || productImage.src} alt="">
-         </span>
-        Classy Modern Smart Watch
-        </th>
-        <th class="col-span-2 uppercase">${item.bandColor}</th>
-        <th class="col-span-2 font-bold">${item.productSize}</th>
-        <th class="col-span-2 font-bold">${item.quantity}</th>
-        <th class="col-span-2 text-end font-bold">${item.price}</th>
-    `;
+        const row = document.createElement('tr');
+        row.className = "p-1 pb-4 grid grid-cols-12 gap-2 w-full text-[#364A63] text-[14px]";
 
 
-    tbody.appendChild(row);
+        row.innerHTML = `
+            <th class="col-span-4 text-start flex gap-2">
+             <span class="w-9  h-9  ">
+             <img class="w-full  " src=${colorToImageMap[item.bandColor]} alt="">
+             </span>
+            Classy Modern Smart Watch
+            </th>
+            <th class="col-span-2 uppercase">${item.bandColor}</th>
+            <th class="col-span-2 font-bold">${item.productSize}</th>
+            <th class="col-span-2 font-bold">${item.quantity}</th>
+            <th class="col-span-2 text-end font-bold">${item.price}</th>
+        `;
 
-});
+
+        tbody.appendChild(row);
+
+        totalContainer.innerHTML = `
+        <h1 class="col-span-8 font-bold text-lg">Total:</h1>
+        <span class="col-span-2 text-center">${totalCartProduct}</span>
+        <span class="col-span-2  text-end">${totalPrice}</span>
+       `
+        cart = JSON.parse(localStorage.getItem('cart')) || []
+
+    });
+}
+// reRender()
 
 
 checkOutBtn.addEventListener('click', () => {
     modal.classList.remove('hidden')
     modal.classList.add('flex')
-    totalContainer.innerHTML = `
-     <h1 class="col-span-8 font-bold text-lg">Total:</h1>
-     <span class="col-span-2 text-center">${totalCartProduct}</span>
-     <span class="col-span-2  text-end">${totalPrice}</span>
-    `
-    cart = JSON.parse(localStorage.getItem('cart')) || []
+
+    reRender()
 
 })
 
